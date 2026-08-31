@@ -1,0 +1,38 @@
+[
+  {
+    "id": "chat-1788151098073-5ar5",
+    "sessionId": "d029d2b5-016b-4bc5-9a9d-3d91dceb5c10",
+    "visitorName": "hi",
+    "visitorRole": "recruiter",
+    "role": "user",
+    "text": "tell me projects",
+    "timestamp": "2026-08-31T04:38:18.073Z"
+  },
+  {
+    "id": "chat-1788151098670-gj3c",
+    "sessionId": "d029d2b5-016b-4bc5-9a9d-3d91dceb5c10",
+    "visitorName": "hi",
+    "visitorRole": "recruiter",
+    "role": "assistant",
+    "text": "Great choice! Piyush has worked on 4 exciting projects. Let me walk you through them.",
+    "timestamp": "2026-08-31T04:38:18.670Z"
+  },
+  {
+    "id": "chat-1788152251496-w25f",
+    "sessionId": "1751e051-be61-465e-b7c9-396998d6bc30",
+    "visitorName": "hi",
+    "visitorRole": "recruiter",
+    "role": "user",
+    "text": "yes",
+    "timestamp": "2026-08-31T04:57:31.496Z"
+  },
+  {
+    "id": "chat-1788152251734-gfv9",
+    "sessionId": "1751e051-be61-465e-b7c9-396998d6bc30",
+    "visitorName": "hi",
+    "visitorRole": "recruiter",
+    "role": "assistant",
+    "text": "I'm ARIA — Piyush's personal AI assistant. I know about his frontend development work, React.js projects, and technical skills. What would you like to explore?",
+    "timestamp": "2026-08-31T04:57:31.735Z"
+  }
+]
