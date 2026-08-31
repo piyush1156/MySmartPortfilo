@@ -23,7 +23,8 @@ export type AppName =
   | "contact"
   | "services"
   | "admin"
-  | "terminal";
+  | "terminal"
+  | "experience";
 
 // Validates that an AI-generated action is a known command
 export function isValidCommand(action: unknown): action is Command {
@@ -119,6 +120,7 @@ function isValidAppName(name: string): name is AppName {
     "services",
     "admin",
     "terminal",
+    "experience",
   ];
   return validNames.includes(name);
 }
