@@ -116,14 +116,16 @@ export default function Desktop({ visitor, onCommand }: DesktopProps) {
 
   return (
     <div className="w-full h-full bg-[#0a0a14] overflow-hidden relative">
-      {/* ── Desktop background ────────────────────────────── */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at 30% 40%, rgba(88,28,135,0.15) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(30,64,175,0.1) 0%, transparent 60%), radial-gradient(ellipse at 50% 50%, #0a0a14 0%, #050508 100%)",
-        }}
+      {/* ── Desktop background (video wallpaper) ────────── */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        src="/bg1.mp4"
       />
+      <div className="absolute inset-0 bg-black/30" />
 
       {/* ── Menu bar ──────────────────────────────────────── */}
       <div className="relative z-50 h-8 bg-black/60 backdrop-blur-xl border-b border-white/[0.06] flex items-center px-4 text-[11px] text-white/70">
