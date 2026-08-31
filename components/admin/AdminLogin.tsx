@@ -8,7 +8,7 @@ interface AdminLoginProps {
 }
 
 export default function AdminLogin({ onLogin }: AdminLoginProps) {
-  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -16,8 +16,8 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
 
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phone.trim()) {
-      setError("Phone number is required");
+    if (!email.trim()) {
+      setError("Email is required");
       return;
     }
     setLoading(true);
@@ -26,15 +26,11 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
       const res = await fetch("/api/auth/otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: phone.trim() }),
+        body: JSON.stringify({ email: email.trim() }),
       });
       const data = await res.json();
       if (res.ok) {
         setOtpSent(true);
-        if (data.otp) {
-          // Dev mode: auto-fill OTP
-          setOtp(data.otp);
-        }
       } else {
         setError(data.error || "Failed to send OTP");
       }
@@ -56,7 +52,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
       const res = await fetch("/api/auth/verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: phone.trim(), otp: otp.trim() }),
+        body: JSON.stringify({ email: email.trim(), code: otp.trim() }),
         credentials: "include",
       });
       const data = await res.json();
@@ -84,7 +80,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
             ◆
           </div>
           <h1 className="text-lg font-semibold text-white/90">Admin Dashboard</h1>
-          <p className="text-xs text-white/35 mt-1">Sign in with your admin credentials</p>
+          <p className="text-xs text-white/35 mt-1">Sign in with your admin email</p>
         </div>
 
         {/* Card */}
@@ -102,12 +98,12 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
           {!otpSent ? (
             <form onSubmit={handleSendOtp} className="space-y-4">
               <div>
-                <label className="text-[10px] text-white/40 mb-1 block">Phone Number</label>
+                <label className="text-[10px] text-white/40 mb-1 block">Email Address</label>
                 <input
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+91 XXXXX XXXXX"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="admin@example.com"
                   className="w-full bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2.5 text-sm text-white/80 outline-none focus:border-amber-500/30 transition-colors placeholder:text-white/20"
                 />
               </div>
@@ -122,7 +118,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
           ) : (
             <form onSubmit={handleVerify} className="space-y-4">
               <div className="text-xs text-white/40 text-center">
-                OTP sent to <span className="text-white/60">{phone}</span>
+                OTP sent to <span className="text-white/60">{email}</span>
               </div>
               <div>
                 <label className="text-[10px] text-white/40 mb-1 block">Enter OTP</label>
@@ -151,7 +147,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
                 }}
                 className="w-full text-xs text-white/30 hover:text-white/50 transition-colors"
               >
-                ← Use a different number
+                ← Use a different email
               </button>
             </form>
           )}
