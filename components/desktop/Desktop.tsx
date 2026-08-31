@@ -116,16 +116,26 @@ export default function Desktop({ visitor, onCommand }: DesktopProps) {
 
   return (
     <div className="w-full h-full bg-[#0a0a14] overflow-hidden relative">
-      {/* ── Desktop background (video wallpaper) ────────── */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        src="/bg1.mp4"
-      />
-      <div className="absolute inset-0 bg-black/30" />
+      {/* ── Desktop background (dual video wallpapers) ── */}
+      <div className="absolute inset-0 overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-60"
+          src="/bg1.mp4"
+        />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-screen"
+          src="/bg2.mp4"
+        />
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
 
       {/* ── Menu bar ──────────────────────────────────────── */}
       <div className="relative z-50 h-8 bg-black/60 backdrop-blur-xl border-b border-white/[0.06] flex items-center px-4 text-[11px] text-white/70">
