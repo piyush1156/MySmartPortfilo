@@ -116,26 +116,8 @@ export default function Desktop({ visitor, onCommand }: DesktopProps) {
 
   return (
     <div className="w-full h-full bg-[#0a0a14] overflow-hidden relative">
-      {/* ── Desktop background (dual video wallpapers) ── */}
-      <div className="absolute inset-0 overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
-          src="/bg1.mp4"
-        />
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-screen"
-          src="/bg2.mp4"
-        />
-        <div className="absolute inset-0 bg-black/40" />
-      </div>
+      {/* ── Desktop background (video wallpapers - sequential) */}
+      <VideoWallpaper />
 
       {/* ── Menu bar ──────────────────────────────────────── */}
       <div className="relative z-50 h-8 bg-black/60 backdrop-blur-xl border-b border-white/[0.06] flex items-center px-4 text-[11px] text-white/70">
@@ -245,6 +227,40 @@ export default function Desktop({ visitor, onCommand }: DesktopProps) {
           </span>
         </motion.button>
       )}
+    </div>
+  );
+}
+
+/* ── Video Wallpaper (sequential playback) ───────────── */
+const WALLPAPERS = ["/bg1.mp4", "/bg2.mp4"];
+
+function VideoWallpaper() {
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleEnded = useCallback(() => {
+    setCurrentIdx((prev) => (prev + 1) % WALLPAPERS.length);
+  }, []);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+      videoRef.current.play().catch(() => {});
+    }
+  }, [currentIdx]);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        playsInline
+        onEnded={handleEnded}
+        className="absolute inset-0 w-full h-full object-cover"
+        src={WALLPAPERS[currentIdx]}
+      />
+      <div className="absolute inset-0 bg-black/30" />
     </div>
   );
 }
